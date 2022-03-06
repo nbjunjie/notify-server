@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { get } from '../utils/http'
 import { getTian } from '../utils/http'
 
 /**
@@ -7,6 +8,8 @@ import { getTian } from '../utils/http'
 enum LoveMsgURL {
   // 天气接口：默认获取最近7天的数据
   weather = 'http://api.tianapi.com/tianqi/index',
+  // 国家气象局天气接口-杭州
+  weatherHangZhou = 'http://www.weather.com.cn/data/cityinfo/101210101.html',
   // 每日简报
   dailyBriefing = 'http://api.tianapi.com/bulletin/index',
   // 今日头条
@@ -54,6 +57,39 @@ class API {
     const res = await getTian({ url: LoveMsgURL.weather, params: { city: city_name } })
     console.log(res)
     return res?.[0]
+  }
+  // 杭州天气
+  async getWeatherHangZhou(city_code: string): Promise<IChinaWeatherResponse | null> {
+    const res = {
+      weatherinfo: {
+        city: '杭州',
+        cityid: '101210101',
+        city_code: city_code,
+        temp1: '-1℃',
+        temp2: '3℃',
+        weather: '暴雨',
+        img1: 'n10.gif',
+        img2: 'd10.gif',
+        ptime: '18:00'
+      }
+    }
+    return res;
+  }
+  async getWeatherHangZhou2(city_code: string): Promise<IChinaWeatherResponse | null> {
+    // const res = await get({ url: LoveMsgURL.weatherHangZhou })
+    // console.log('res:' + res)
+    // console.log(res.get('weatherinfo'))
+    // return res
+    try {
+      const response = await axios(LoveMsgURL.weatherHangZhou, { timeout: 30000 })
+      // console.log(response)
+      // console.log(response.status)
+      console.log(response.data)
+      return response.data
+    } catch (error) {
+      console.log(error)
+      return null
+    }
   }
 
   // 每日简报

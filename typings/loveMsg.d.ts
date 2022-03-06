@@ -28,6 +28,30 @@ interface IWeatherResponseProps {
   tips: string
 }
 
+//  国家气象局 城市天气返回对象
+interface IChinaWeatherResponse {
+  /** 天气信息 */
+  weatherinfo: IChinaWeatherResponseProps
+}
+interface IChinaWeatherResponseProps {
+  /** 城市id */
+  cityid: string
+  /** 城市 */
+  city: string
+  /** 低温 */
+  temp1: string
+  /** 高温 */
+  temp2: string
+  /** 天气 */
+  weather: string
+  /** 图1 */
+  img1: string
+  /** 图2 */
+  img2: string
+  /** 时间 */
+  ptime: string
+}
+
 interface IVerseProps {
   /** 长安白日照春空，绿杨结烟垂袅风。 */
   content: string
@@ -143,6 +167,15 @@ interface OneWordProps {
  */
 // goodMorning
 type TextCardTemplateProps = IWeatherResponseProps & {
+  lunarInfo: ResLunarDateProps
+  oneWord?: OneWordProps | null
+}
+
+/**
+ * 模板杭州
+ */
+// goodMorning
+type TextCardHangZhouTemplateProps = IChinaWeatherResponseProps & {
   lunarInfo: ResLunarDateProps
   oneWord?: OneWordProps | null
 }
