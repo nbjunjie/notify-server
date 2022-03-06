@@ -16,17 +16,17 @@ const goodWord = async () => {
   try {
     // 并行请求，优响相应
     const dataSource = await Promise.allSettled([
-      API.getSaylove(), // 土味情话
-      API.getCaihongpi(), // 彩虹屁
+      // API.getSaylove(), // 土味情话
+      // API.getCaihongpi(), // 彩虹屁
       API.getOneWord(), // 一言
-      API.getSongLyrics(), // 最美宋词
-      API.getOneMagazines(), // one杂志
-      API.getNetEaseCloud(), // 网易云热评
-      API.getDayEnglish(), // 每日英语
+      // API.getSongLyrics(), // 最美宋词
+      // API.getOneMagazines(), // one杂志
+      // API.getNetEaseCloud(), // 网易云热评
+      // API.getDayEnglish(), // 每日英语
     ])
 
     // 过滤掉异常数据
-    const [sayLove, caiHongpi, oneWord, songLyrics, oneMagazines, netEaseCloud, dayEnglish] =
+    const [oneWord, sayLove, caiHongpi, songLyrics, oneMagazines, netEaseCloud, dayEnglish] =
       dataSource.map((n) => (n.status === 'fulfilled' ? n.value : null))
 
     // 对象写法
@@ -34,10 +34,10 @@ const goodWord = async () => {
       sayLove,
       caiHongpi,
       oneWord,
-      songLyrics,
-      oneMagazines,
-      netEaseCloud,
-      dayEnglish,
+      // songLyrics,
+      // oneMagazines,
+      // netEaseCloud,
+      // dayEnglish,
     }
 
     const template = textTemplate(data)
@@ -55,11 +55,12 @@ const weatherInfo = async () => {
     const weather = await API.getWeather(CONFIG.city_name)
     if (weather) {
       const lunarInfo = await API.getLunarDate(weather.date)
+      console.log('lunarInfo', lunarInfo)
       const template = textCardTemplate({ ...weather, lunarInfo })
       console.log('weatherInfo', template)
 
       // 发送消息
-      // await wxNotify(template)
+      await wxNotify(template)
     } else {
       console.log('weatherInfo:', weather)
     }
@@ -77,9 +78,9 @@ const weatherInfoHangZhou = async () => {
       // const date = '2022-02-06'
       // const lunarInfo = await API.getLunarDate(date)
       // const template = textCardTemplate({ ...weather, lunarInfo })
-      console.log('weatherinfo:', weather.weatherinfo)
-      console.log('city:', weather.weatherinfo.city)
-      console.log('天气:', weather.weatherinfo.weather)
+      // console.log('weatherinfo:', weather.weatherinfo)
+      // console.log('city:', weather.weatherinfo.city)
+      // console.log('天气:', weather.weatherinfo.weather)
       const [lunar_festival, festival, lubarmonth, lunarday, jieqi] = ['七夕节','女神节', '二月', '二日', '龙抬头']        
       const lunarInfo: ResLunarDateProps = {
         lunar_festival,
@@ -92,7 +93,7 @@ const weatherInfoHangZhou = async () => {
       const template = textCardTemplate2({ ...weather.weatherinfo, lunarInfo })
       console.log(template)
       // 发送消息
-      await wxNotify(template)
+      // await wxNotify(template)
     } else {
       console.log('weather:', weather)
     }
@@ -103,7 +104,7 @@ const weatherInfoHangZhou = async () => {
 
 // goodMorning
 export const goodMorning = async () => {
-  // await weatherInfo()
-  await weatherInfoHangZhou()
+  await weatherInfo()
+  // await weatherInfoHangZhou()
   // await goodWord()
 }

@@ -11,9 +11,11 @@ loveMsg:
   # 对女朋友的爱称
   girl_name: 小起
   # 对自己的称呼
-  boy_name: 憨憨
+  # boy_name: 憨憨
+  boy_name: 车厘子
   # 点击卡片详情地址
   card_url: https://api.vvhan.com/api/60s
+  card_url_weather: http://www.weather.com.cn/weather1d/101210101.shtml
   # 天气生活指数提示（默认开启）
   weather_tips: true
   # 极端天气温度提醒（默认开启）

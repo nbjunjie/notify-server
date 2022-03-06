@@ -54,12 +54,36 @@ class API {
 
   // 天气
   async getWeather(city_name: string): Promise<IWeatherResponseProps> {
-    const res = await getTian({ url: LoveMsgURL.weather, params: { city: city_name } })
+    // const res = await getTian({ url: LoveMsgURL.weather, params: { city: city_name } })
+    const res = [  {
+      area: '杭州',
+      date: '2022-03-07',
+      week: '星期一',
+      weather: '小雨转晴',
+      weatherimg: 'qing.png',
+      real: '3℃',
+      lowest: '3℃',
+      highest: '11℃',
+      wind: '北风',
+      winddeg: '0',
+      windspeed: '3',
+      windsc: '1-2级',
+      sunrise: '06:20',
+      sunset: '18:02',
+      moonrise: '08:57',
+      moondown: '22:29',
+      pcpn: '1.0',
+      pop: '55',
+      uv_index: '2',
+      vis: '24',
+      humidity: '87',
+      tips: '天气凉，适宜着一到两件羊毛衫、大衣、毛套装、皮夹克等春秋着装；年老体弱者宜着风衣加羊毛衫等厚型春秋着装。晴天紫外线等级较高，外出注意补水防晒。疫情防控不松懈，出门请佩戴口罩 。'
+    }]
     console.log(res)
     return res?.[0]
   }
   // 杭州天气
-  async getWeatherHangZhou(city_code: string): Promise<IChinaWeatherResponse | null> {
+  async getWeatherHangZhouMock(city_code: string): Promise<IChinaWeatherResponse | null> {
     const res = {
       weatherinfo: {
         city: '杭州',
@@ -75,7 +99,7 @@ class API {
     }
     return res;
   }
-  async getWeatherHangZhou2(city_code: string): Promise<IChinaWeatherResponse | null> {
+  async getWeatherHangZhou(city_code: string): Promise<IChinaWeatherResponse | null> {
     // const res = await get({ url: LoveMsgURL.weatherHangZhou })
     // console.log('res:' + res)
     // console.log(res.get('weatherinfo'))
@@ -136,7 +160,35 @@ class API {
 
   // 获取农历信息
   async getLunarDate(date: string) {
-    const res = await getTian<ResLunarDateProps[]>({ url: LoveMsgURL.lunarDate, params: { date } })
+    // const res = await getTian<ResLunarDateProps[]>({ url: LoveMsgURL.lunarDate, params: { date } })
+    const res =[
+      {
+        "gregoriandate": "2022-03-07",
+        "lunardate": "2022-2-5",
+        "lunar_festival": "",
+        "festival": "",
+        "fitness": "交易.立券.会友.签约.纳畜",
+        "taboo": "种植.置业.卖田.掘井.造船",
+        "shenwei": "喜神：东北 福神：正北 财神：正北阳贵：正北 阴贵：西南 ",
+        "taishen": "占在门,厕道莫修移胎神在外正东停留5天",
+        "chongsha": "羊日冲(癸丑)牛",
+        "suisha": "岁煞西",
+        "wuxingjiazi": "金",
+        "wuxingnayear": "金箔金",
+        "wuxingnamonth": "金箔金",
+        "xingsu": "南方张月鹿-吉",
+        "pengzu": "己不破券 未不服药",
+        "jianshen": "定",
+        "tiangandizhiyear": "壬寅",
+        "tiangandizhimonth": "癸卯",
+        "tiangandizhiday": "己未",
+        "lmonthname": "仲春",
+        "shengxiao": "虎",
+        "lubarmonth": "二月",
+        "lunarday": "初五",
+        "jieqi": ""
+      }
+    ]
     return res?.[0]
   }
 
@@ -162,6 +214,7 @@ class API {
   async getOneWord(): Promise<OneWordProps | null> {
     try {
       const response = await axios(LoveMsgURL.oneWord, { timeout: 30000 })
+      console.log(response.data)
       return response.data
     } catch (error) {
       console.log(error)

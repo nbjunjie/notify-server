@@ -7,7 +7,7 @@ import dayjs, { weekToday } from '../../../utils/dayjs'
 
 export const textTemplate = (data: TextTemplateProps) => {
   const { caiHongpi, sayLove, songLyrics, oneMagazines, netEaseCloud, oneWord, dayEnglish } = data
-
+  console.log(data)
   let text = '早安呀，我可爱的鱼崽崽~\n'
 
   // 工作日/休息日，需要排除节假日
@@ -55,7 +55,7 @@ ${sayLove.content}\n`
   // 添加一句一言
   if (oneWord) {
     text += `
-『一言』${oneWord.hitokoto}\n`
+『一言』${oneWord.hitokoto + '--' + oneWord.from}\n`
   }
 
   // 每日英语
